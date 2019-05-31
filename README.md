@@ -12,10 +12,10 @@ For the the final term project, Alex and Nathaniel chose to create a musical syn
 We wished to use the EA-1 as an inspiration, as well as a heavy influence on the user interface.  To that extent, we intend to design the following:
 16 channel polyphonic sequencer: 
 1. 16 independent channels of sound, each with: 
-  * ADSR filter
-  * 2 octave note range
-  * Sine, square, and noise waveforms
-  * Hardware switch enable/disable
+   * ADSR filter
+   * 2 octave note range
+   * Sine, square, and noise waveforms
+   * Hardware switch enable/disable
 2. Variable tempo control
 3. Fully functioning 7-segment display detailing menu options
 
