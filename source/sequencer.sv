@@ -33,7 +33,7 @@ module sequencer(
 	    output logic LED16_R = 1'b1,    // Output for PLAY/STOP
 	    output logic LED17_R, LED17_G, LED17_B, // Light show!
 	    output logic [7:0] AN,               // anodes of the 7-segment displays
-        output logic DP,CG,CF,CE,CD,CC,CB,CA, // cathodes of the 7-segment displays
+            output logic DP,CG,CF,CE,CD,CC,CB,CA, // cathodes of the 7-segment displays
 
 	    // Audio Output
 	    output logic AUD_PWM,   // audio signal
@@ -206,11 +206,11 @@ adsr adsr0(
 	// inputs
 	.clk(CLK100MHZ),
 	.reset(reset),
-	.start(keyPushed), // adsr sequence starts when a keyboard key is pressed.
-	.atk_step,   // attack steepness
-	.dcy_step,   // decay steepness
-	.sus_level,  // sustain volume level
-	.sus_time,   // sustain length of time
+	.start(keyPushed), 	// adsr sequence starts when a keyboard key is pressed.
+	.atk_step,   		// attack steepness
+	.dcy_step,   		// decay steepness
+	.sus_level,  		// sustain volume level
+	.sus_time,   		// sustain length of time
 	.rel_step,   // release steepness
 	// outputs
 	.env,        // envelope
@@ -231,7 +231,7 @@ always_ff @(posedge CLK100MHZ) begin
         STOP: begin
             LED16_R <= 1'b1;
             if(CENTER) begin
-            playStateNext <= PLAY;
+            	playStateNext <= PLAY;
             end
         end
 
@@ -392,7 +392,8 @@ task initializeVariables();
   end
 endtask*/
 
-//BUTTON LOGIC/Menu State Machine CODE
+////////////////////////////////////////////////////////////
+//BUTTON LOGIC, Menu State Machine CODE/////////////////////
 always_ff @(posedge CLK100MHZ)
 begin
   if (menuVerticalState == STEP) begin
@@ -401,14 +402,14 @@ begin
     if (UP)    begin end//DO NOTHING
     if (DOWN)  increaseMenuVerticalState();
   end
-//////////////////////////////////////////////
+////////////////////////////////////////////////////////////
   if (menuVerticalState == SETTING_NAME) begin
     if (UP)    decreaseMenuVerticalState();
     if (DOWN)  increaseMenuVerticalState();
     if (LEFT)  decreaseMenuHorizontalState();
     if (RIGHT) increaseMenuHorizontalState();
   end
-///////////////////////////////////////////////
+////////////////////////////////////////////////////////////
   if (menuVerticalState == SETTING_VALUE) begin
     if (UP)  decreaseMenuVerticalState();
     if (DOWN) begin end //DO NOTHING
@@ -429,7 +430,9 @@ begin
   end
 end
 
-// Main seven seg display code.
+////////////////////////////////////////////////////////////
+// Main seven seg display codew
+////////////////////////////////////////////////////////////
 
 always_ff @(posedge CLK100MHZ) begin
   if(menuVerticalState == STEP)
@@ -604,7 +607,7 @@ task noteMenuValues();
         sseg1 = 8'b0;
         sseg0 = 8'b0;
       end
-	  5005: begin //A#4 = 466.164 Hz
+      5005: begin //A#4 = 466.164 Hz
         sseg3 = A_SSEG;
         sseg2 = S_SSEG;
         sseg1 = H_SSEG;
@@ -616,55 +619,55 @@ task noteMenuValues();
         sseg1 = 8'b0;
         sseg0 = 8'b0;
       end
-	  5618: begin //C5  = 523.251 Hz
+      5618: begin //C5  = 523.251 Hz
         sseg3 = C_SSEG;
         sseg2 = 8'b0;
         sseg1 = 8'b0;
         sseg0 = 8'b0;
       end
-	  5952: begin //C#5 = 554.365 Hz
+      5952: begin //C#5 = 554.365 Hz
         sseg3 = C_SSEG;
         sseg2 = S_SSEG;
         sseg1 = H_SSEG;
         sseg0 = P_SSEG;
       end
-	  6306: begin //D5  = 587.330 Hz
+      6306: begin //D5  = 587.330 Hz
         sseg3 = D_SSEG;
         sseg2 = 8'b0;
         sseg1 = 8'b0;
         sseg0 = 8'b0;
       end
-	  6681: begin //D#5 = 622.254 Hz
+      6681: begin //D#5 = 622.254 Hz
         sseg3 = D_SSEG;
         sseg2 = S_SSEG;
         sseg1 = H_SSEG;
         sseg0 = P_SSEG;
       end
-	  7079: begin //E5  = 659.255 Hz
+      7079: begin //E5  = 659.255 Hz
         sseg3 = E_SSEG;
         sseg2 = 8'b0;
         sseg1 = 8'b0;
         sseg0 = 8'b0;
       end
-	  7500: begin //F5  = 698.456 Hz
+      7500: begin //F5  = 698.456 Hz
         sseg3 = F_SSEG;
         sseg2 = 8'b0;
         sseg1 = 8'b0;
         sseg0 = 8'b0;
       end
-	  7946: begin //F#5 = 739.989 Hz
+      7946: begin //F#5 = 739.989 Hz
         sseg3 = F_SSEG;
         sseg2 = S_SSEG;
         sseg1 = H_SSEG;
         sseg0 = P_SSEG;
       end
-	  8418: begin //G5  = 783.991 Hz
+      8418: begin //G5  = 783.991 Hz
         sseg3 = G_SSEG;
         sseg2 = 8'b0;
         sseg1 = 8'b0;
         sseg0 = 8'b0;
       end
-	  8919: begin //G#5 = 830.609 Hz
+      8919: begin //G#5 = 830.609 Hz
         sseg3 = G_SSEG;
         sseg2 = S_SSEG;
         sseg1 = H_SSEG;
@@ -711,9 +714,7 @@ beat_clock #(120) beat_clock(
     .reset(reset)
     );
 
-// Puts out a tick for generating a blinking LED.  67 is chosen for being prime, and
-// never overlapping with the 120 beat_clock.  There was a reason for this, which we
-// no longer recall.
+// Puts out a tick for generating a blinking LED.
 
 beat_clock #(67) blink_clock(
     .clk(CLK100MHZ),
