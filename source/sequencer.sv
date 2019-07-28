@@ -273,8 +273,7 @@ endtask
 
 task decreaseMenuStepState();
   begin
-      newIndex = menuStepState;    // Increment the enum value of the stateMachine.
-      newIndex = newIndex - 1;
+      newIndex = menuStepState - 1;    // Decrement the enum value of the stateMachine.
       if (newIndex < 0) begin
         newIndex = 15;
       end
@@ -285,9 +284,10 @@ endtask
 task increaseMenuVerticalState();
   begin
     case(menuVerticalState)
-      STEP:         begin menuVerticalState <= SETTING_NAME; end
-      SETTING_NAME: begin menuVerticalState <= SETTING_VALUE; end
-      default:      begin menuVerticalState <= menuVerticalState; end
+      STEP:           begin menuVerticalState <= SETTING_NAME; end
+      SETTING_NAME:   begin menuVerticalState <= SETTING_VALUE; end
+      SETTING_VALUE:  begin menuVerticalState <= menuVerticalState; end
+      default:        begin menuVerticalState <= menuVerticalState; end
     endcase
   end
 endtask
@@ -295,9 +295,10 @@ endtask
 task decreaseMenuVerticalState();
   begin
     case(menuVerticalState)
-      SETTING_NAME:  begin menuVerticalState <= STEP; end
-      SETTING_VALUE: begin menuVerticalState <= SETTING_NAME; end
-      default:       begin menuVerticalState <= menuVerticalState; end
+      STEP:           begin menuVerticalState <= menuVerticalState; end
+      SETTING_NAME:   begin menuVerticalState <= STEP; end
+      SETTING_VALUE:  begin menuVerticalState <= SETTING_NAME; end
+      default:        begin menuVerticalState <= menuVerticalState; end
     endcase
   end
 endtask
