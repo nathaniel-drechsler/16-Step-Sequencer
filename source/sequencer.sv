@@ -257,20 +257,6 @@ always_ff @(posedge tempoTick)
         end
   end
 
-// Sound on if switch is on.
-always_ff @(posedge tempoTick)
-  begin
-    if (switch[15-audioStepState])begin
-        soundOn <=1;
-         fccw <= noteArray[15-audioStepState];
-    end
-
-    else begin
-        soundOn <=0;
-         fccw <= 514724;
-    end
-  end
-
 ////////////////////////////////////////////////////////////
 // Menu State Machine
 ////////////////////////////////////////////////////////////
